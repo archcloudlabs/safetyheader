@@ -68,5 +68,14 @@ class TestSafeHeader(unittest.TestCase):
         '''
         assert header_manipulation(directory, patch, remove) is False
 
+    @classmethod
+    def test_header_manipulation_dir_error(cls, directory="./test_bins",
+                                                 patch=True, remove=True):
+        '''
+        Name: test_header_manipulation_conflict_header
+        Purpose: Test conflicting user arguments
+        '''
+        assert header_manipulation(directory, patch, remove) is False
+
 if __name__ == "__main__":
     unittest.main()
