@@ -1,9 +1,12 @@
 ### SafeHeader
-#### Purpose
-Prevent accidental execution of malware by prepending a "unique header" to the
+#### About The Project 
+Prevent accidental execution of binaries by prepending a "unique header" to the
 binary.
 
-#### Example Usage
+#### Requirements
+* Python3
+
+#### Example CLI Usage
 * Prepend "deadcafe" to binaries in a specific directory.
  ```bash 
  ./safeheader.py --patch --dir ./test_bins/\*
