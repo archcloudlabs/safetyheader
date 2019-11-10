@@ -43,8 +43,6 @@ def header_manipulation(directory, patch=None, remove=None):
                         print("[!] Error: %s" % (err))
                         return False
                     print("[+] Successfully patched %s with header %s" % (sample, SAFE_HEADER))
-                else:
-                    return False
         except IsADirectoryError:
             print("[!] Error, specified directory for got the '*'")
             return False
