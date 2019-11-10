@@ -12,6 +12,9 @@ def header_manipulation(directory, patch=None, remove=None):
     Return: Boolean value.
     '''
     samples = glob.glob(directory)
+    if patch is not None and remove is not None:
+        print("[!] Error, you cannot remove and patch the magicheader!")
+        return False
 
     for sample in samples:
         try:
