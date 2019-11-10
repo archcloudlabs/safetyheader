@@ -1,9 +1,27 @@
 #!/usr/bin/python3
+"""
+Add "safe header" to prevent accidental patching.
+"""
 import glob
 import argparse
 import sys
 
 SAFE_HEADER = b'\xDE\xAD\xCA\xFE'
+
+def write(fname, data):
+    '''
+    Name: write
+    Purpose: write binary data to disk
+    Return: Boolean value indiciating success or false on IO failure
+    '''
+    try:
+        with open(fname, 'wb') as fout:
+            fout.write(data)
+        return True
+    except IOError as err:
+        print("[!] Error: %s" % (err))
+    return False
+
 def header_manipulation(directory, patch=None, remove=None):
     '''
     Name: header_manipulation
@@ -20,32 +38,24 @@ def header_manipulation(directory, patch=None, remove=None):
         try:
             with open(sample, "rb") as fin:
                 real_data = fin.read()
+
                 if real_data[0:4] == b'\xde\xad\xca\xfe' and remove is None:
                     print("[!] Safe header already exists within %s." % sample)
 
                 if real_data[0:4] == b'\xde\xad\xca\xfe' and remove is not None:
                     print("[*] Safe header identified in %s! Removing safe header!" % sample)
-                    real_data = real_data[4:] # Remove four bytes
-                    try:
-                        with open(sample, 'wb') as fout:
-                            fout.write(real_data)
-                    except IOError as err:
-                        print("[!] Error: %s" % (err))
-                        return False
-                    print("[+] Successfully restored %s." % (sample))
+                    real_data = real_data[4:] # Remove safeheader
+
+                    if write(sample, real_data):
+                        print("[+] Successfully restored %s." % (sample))
 
                 if real_data[0:4] != b'\xde\xad\xca\xfe' and remove is not None:
                     print("[!] Magic header has already been removed")
 
                 if real_data[0:4] != b'\xde\xad\xca\xfe' and patch is not None:
                     new_binary = SAFE_HEADER + real_data
-                    try:
-                        with open(sample, 'wb') as fout:
-                            fout.write(new_binary)
-                    except IOError as err:
-                        print("[!] Error: %s" % (err))
-                        return False
-                    print("[+] Successfully patched %s with header %s" % (sample, SAFE_HEADER))
+                    if write(sample, new_binary):
+                        print("[+] Successfully patched %s with header %s" % (sample, SAFE_HEADER))
         except IsADirectoryError:
             print("[!] Error, specified directory for got the '*'")
             return False
