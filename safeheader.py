@@ -18,7 +18,7 @@ def header_manipulation(directory, patch=None, rm=None):
             with open(sample, "rb") as fin:
                 real_data = fin.read()
                 if real_data[0:4] == b'\xde\xad\xca\xfe' and rm is None:
-                    print("[*] Safe header already exists within %s." % sample)
+                    print("[!] Safe header already exists within %s." % sample)
                     return True
 
                 elif real_data[0:4] == b'\xde\xad\xca\xfe' and rm is not None:
