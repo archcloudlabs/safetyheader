@@ -1,5 +1,10 @@
-### SafeHeader
+<p align="center">
+<img width="264" height="264" src="https://i.imgur.com/ZwU41LG.png">
+<br />
+</p>
+
 #### About The Project 
+
 Prevent accidental execution of binaries by prepending a "unique header" to the
 binary.
 
