@@ -3,7 +3,7 @@ import glob
 import argparse
 import sys
 
-SAFE_HEADER= b'\xDE\xAD'
+SAFE_HEADER= b'\xDE\xAD\xCA\xFE'
 def add_header(directory):
     '''
     '''
@@ -13,13 +13,16 @@ def add_header(directory):
         try:
             with open(sample, "rb") as fin:
                 real_data = fin.read()
+                if real_data[0:4] == b'\xde\xad\xca\xfe':
+                    print("[*] Safe header has already been appended. Exiting!")
+                    sys.exit(1)
                 new_binary = SAFE_HEADER + real_data
+                with open(sample, 'wb') as fout:
+                    fout.write(new_binary)
+                print("[+] Successfully patched %s with header" % (sample))
         except IsADirectoryError:
             print("[!] Error, specified directoy for got the '*'")
             sys.exit(1)
-            with open(sample, 'wb') as fout:
-                fout.write(new_binary)
-        print("[+] Successfully patched %s with header" % (sample))
     return True
 
 if __name__ == "__main__":
