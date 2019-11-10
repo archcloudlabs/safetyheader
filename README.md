@@ -6,8 +6,9 @@ binary.
 #### Example Usage
 * Prepend "deadcafe" to binaries in a specific directory.
  ```bash 
-./safeheader.py -d test_bins/\*
+ ./safeheader.py --patch --dir ./test_bins/\*
 ```
+
 * Remove deadcafe from binaries in a specific directory.
 
 ```
