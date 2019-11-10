@@ -7,6 +7,7 @@ binary.
 * Python3
 
 #### Example CLI Usage
+
 * Prepend "deadcafe" to binaries in a specific directory.
  ```bash 
  ./safeheader.py --patch --dir ./test_bins/\*
@@ -16,4 +17,9 @@ binary.
 
 ```
 ./safeheader.py --rm --dir test_bins/\*
+```
+
+#### Unit Tests
+```
+ python -m unittest
 ```
