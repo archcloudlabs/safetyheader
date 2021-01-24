@@ -18,6 +18,14 @@ binary.
  ./safeheader.py --patch --dir ./test_bins/\*
 ```
 
+ ```bash 
+ ./safeheader.py -p -d ./test_bins/\*
+```
+
+*Note, you must specify an extension or add '*' to prepend a header to all files.*
+
+
+
 * Remove "deadcafe" from binaries in a specific directory.
 
 ```
