@@ -100,7 +100,7 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--remove", default=None, action="store_true",
                         help="Specify directory to remove safety header to.", required=False)
 
-    parser.add_argument("-p", "--patch", default=None, action="store_true",
+    parser.add_argument("-p", "--patch", default=True, action="store_true",
                         help="Specify to patch binary or not.", required=False)
     args = parser.parse_args()
 
